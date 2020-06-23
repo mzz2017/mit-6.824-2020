@@ -6,24 +6,33 @@ package mr
 // remember to capitalize all names.
 //
 
-import "os"
+import (
+	"os"
+)
 import "strconv"
 
-//
-// example to show how to declare the arguments
-// and reply for an RPC.
-//
-
-type ExampleArgs struct {
-	X int
+type GetTaskRequest struct {
 }
 
-type ExampleReply struct {
-	Y int
+type GetTaskResponse struct {
+	TaskType         TaskType
+	TaskNumber       int
+	MapInputFilename string // for map task
+	Ys               []int  // the Y in "mr-X-Y" that generated numbers by ihash and is for reduce task
+	NMap             int
+	NReduce          int
+	Err              string
 }
 
-// Add your RPC definitions here.
+type Ping struct {
+	TaskType   TaskType
+	TaskState  TaskState
+	TaskNumber int
+	Ys         []int // map task need to send
+}
 
+type Pong struct {
+}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the master.

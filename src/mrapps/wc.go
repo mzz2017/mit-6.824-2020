@@ -25,9 +25,9 @@ func Map(filename string, contents string) []mr.KeyValue {
 	// split contents into an array of words.
 	words := strings.FieldsFunc(contents, ff)
 
-	kva := []mr.KeyValue{}
+	var kva []mr.KeyValue
 	for _, w := range words {
-		kv := mr.KeyValue{w, "1"}
+		kv := mr.KeyValue{Key: w, Value: "1"}
 		kva = append(kva, kv)
 	}
 	return kva
