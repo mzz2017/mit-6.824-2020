@@ -132,6 +132,7 @@ func (w *TaskWorker) Map() (Ys []int, err error) {
 		for _, kv := range kva {
 			err = enc.Encode(&kv)
 			if err != nil {
+				f.Close()
 				return
 			}
 		}
@@ -156,7 +157,8 @@ func (w *TaskWorker) Reduce() (err error) {
 		for {
 			var kv KeyValue
 			if err := dec.Decode(&kv); err != nil {
-				break
+				f.Close()
+				return
 			}
 			kva = append(kva, kv)
 		}
